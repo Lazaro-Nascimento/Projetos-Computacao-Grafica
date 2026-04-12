@@ -11,9 +11,9 @@ int main() {
 
     olho_t olhoEsquerdo, olhoDireito;
 
-    const int dim = 500;
+    const int dim = 400;
 
-    float centro_x = 0.5f, centro_y = 0.5f, raio = 0.3f, distanciaRosto, distanciaOlhoEsquerdo, distanciaOlhoDireito;
+    float centro_x = 0.5f, centro_y = 0.5f, raio = 0.3f, distanciaRosto, distanciaOlhoEsquerdo, distanciaOlhoDireito, distanciaSorriso;
 
     float alturaDosOlhos = (float)(0.5 - raio/2);
 
@@ -44,18 +44,25 @@ int main() {
 
 	    distanciaOlhoDireito = std::sqrt(std::pow(u - olhoDireito.centroX, 2) + std::pow(v - olhoDireito.centroY, 2));
 
-	    if(distanciaOlhoDireito < raio/5)
+	    distanciaSorriso = std::sqrt(std::pow(u - centro_x, 2) + std::pow(v - centro_y,2));
+
+	    if (distanciaOlhoDireito < raio/5)
 	    {
 		arquivo << "0 0 0\n";
 	    }
 
-	    else if(distanciaOlhoEsquerdo < raio/5)
+	    else if (distanciaOlhoEsquerdo < raio/5)
             {
                 arquivo << "0 0 0\n";
             }
 
+	    else if (distanciaSorriso < raio/2 && v > centro_y && distanciaSorriso > raio/3)
+	    {
+		arquivo << "0 0 0\n";
+	    }
+
 	    else if (distanciaRosto < raio) {
-                arquivo << "255 255 255\n"; // Branco (dentro do círculo)
+                arquivo << "255 255 0\n"; // Branco (dentro do círculo)
             }
 
 	    else {
