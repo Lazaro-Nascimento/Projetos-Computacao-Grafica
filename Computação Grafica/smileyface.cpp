@@ -53,7 +53,7 @@ int main() {
     olhoEsquerdo.centroX = posicaoXOlhoEsquerdo;
     olhoEsquerdo.centroY = alturaDosOlhos;
 
-    std::ofstream arquivo("/mnt/c/Users/lazar/Downloads/smileyface.ppm");
+    std::ofstream arquivo("PATH_FILE");
 
     arquivo << "P3\n" << dim << " " << dim << "\n255\n";
 
