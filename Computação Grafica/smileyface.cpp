@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include <cmath> // Necessário para sqrt() e pow()
+#include <cmath>
 #define RAIO 0.3f
 
 struct olho_t{
@@ -35,7 +35,6 @@ int main() {
 
     float alturaDosOlhos, posicaoXOlhoDireito, posicaoXOlhoEsquerdo;
 
-
     alturaDosOlhos = (float)(0.5 - RAIO/2);
 
     posicaoXOlhoDireito = (float)(0.5 - RAIO + RAIO + RAIO/2.0);
@@ -66,44 +65,42 @@ int main() {
 
 void DesenharFormatoPPM(rosto_t rosto, olho_t olhoEsquerdo, olho_t olhoDireito, sorriso_t sorriso, std::ofstream& arquivo, int dim)
 {
-
-     for (int y = 0; y < dim; ++y) {
-
-        for (int x = 0; x < dim; ++x) {
-
+     for (int y = 0; y < dim; ++y) 
+	 {
+        for (int x = 0; x < dim; ++x)
+		{
             float u = (float)x / dim;
             float v = (float)y / dim;
-
+			
             rosto.distancia = std::sqrt(std::pow(u - rosto.centroX, 2) + std::pow(v - rosto.centroY, 2));
-
-	    olhoEsquerdo.distancia = std::sqrt(std::pow(u - olhoEsquerdo.centroX, 2) + std::pow(v - olhoEsquerdo.centroY, 2));
-
-	    olhoDireito.distancia = std::sqrt(std::pow(u - olhoDireito.centroX, 2) + std::pow(v - olhoDireito.centroY, 2));
-
-	    sorriso.distancia = std::sqrt(std::pow(u - sorriso.centroX, 2) + std::pow(v - sorriso.centroY,2));
-
-	    if (olhoDireito.distancia < RAIO/5)
-	    {
-		arquivo << "0 0 0\n";
-	    }
-
-	    else if (olhoEsquerdo.distancia < RAIO/5)
-            {
-                arquivo << "0 0 0\n";
-            }
-
-	    else if (sorriso.distancia < RAIO/2 && v > rosto.centroY && sorriso.distancia > RAIO/3)
-	    {
-		arquivo << "0 0 0\n";
-	    }
-
-	    else if (rosto.distancia < RAIO) {
-                arquivo << "255 255 0\n";
-            }
-
-	    else {
-                arquivo << "0 0 0\n";
-            }
-        }
+	    	olhoEsquerdo.distancia = std::sqrt(std::pow(u - olhoEsquerdo.centroX, 2) + std::pow(v - olhoEsquerdo.centroY, 2));
+		    olhoDireito.distancia = std::sqrt(std::pow(u - olhoDireito.centroX, 2) + std::pow(v - olhoDireito.centroY, 2));
+		    sorriso.distancia = std::sqrt(std::pow(u - sorriso.centroX, 2) + std::pow(v - sorriso.centroY,2));
+	
+		    if (olhoDireito.distancia < RAIO/5)
+		    {
+				arquivo << "0 0 0\n";
+		    }
+	
+		    else if (olhoEsquerdo.distancia < RAIO/5)
+			{
+				arquivo << "0 0 0\n";
+			}
+	
+		    else if (sorriso.distancia < RAIO/2 && v > rosto.centroY && sorriso.distancia > RAIO/3)
+		    {
+				arquivo << "0 0 0\n";
+		    }
+	
+		    else if (rosto.distancia < RAIO)
+			{
+				arquivo << "255 255 0\n";
+	        }
+	
+		    else 
+			{
+				arquivo << "0 0 0\n";
+			}
+		}
      }
 }
